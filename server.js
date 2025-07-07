@@ -1,14 +1,22 @@
 const express = require("express");
 const cors = require("cors");
+const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const app = express();
 app.use(express.json());
-mongoose.connect("mongodb://localhost:27017/mainp");
+dotenv.config();
+mongoose
+  .connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log("MongoDB connected"))
+  .catch((err) => console.log(err));
 const db = mongoose.connection;
 db.on("error", (error) => console.error("Error in DB connection:", error));
 db.on("open", () => console.log("Connected to MongoDB"));
-const PORT = 1111;
-const allowedOrigin = "http://localhost:3000";
+const PORT = process.env.PORT || 1111;
+const allowedOrigin = process.env.FRONTEND_ORIGIN || "http://localhost:3000";
 app.use(
   cors({
     origin: allowedOrigin,
