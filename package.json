@@ -1,9 +1,7 @@
 {
   "scripts": {
-    "build": "echo 'No build needed for serverless backend'",
-    "start": "nodemon server.js",
-    "dev": "nodemon server.js"
-  },
+  "start": "node server.js"
+ },
   "dependencies": {
     "body-parser": "^2.2.0",
     "cors": "^2.8.5",
